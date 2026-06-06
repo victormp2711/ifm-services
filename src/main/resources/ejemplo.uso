@@ -1,0 +1,18 @@
+// Desde BdvApp llamando al Proxy Firma Digital
+UsuarioRequest usuario = new UsuarioRequest();
+usuario.setCedula("12345678");
+usuario.setUsuario("juan.perez");
+usuario.setNombre("Juan");
+usuario.setApellido("Pérez");
+
+// Llamar al proxy
+String proxyUrl = "http://localhost:8083/proxy-firma-digital/api/v1/firma-digital/autenticar";
+
+// Realizar POST con el objeto usuario
+// Recibir AutenticacionResponse con el token de usuario
+
+endpoints
+
+POST /proxy-firma-digital/api/v1/firma-digital/autenticar
+GET  /proxy-firma-digital/api/v1/firma-digital/health
+GET  /proxy-firma-digital/api/v1/firma-digital/info
