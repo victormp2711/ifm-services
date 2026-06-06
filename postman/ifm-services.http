@@ -1,0 +1,301 @@
+### Colección HTTP — IFM Services
+### Base: {{baseUrl}} = http://localhost:8084/ifm
+### Importar también: IFM-Services.postman_collection.json (Postman / Insomnia)
+
+@baseUrl = http://localhost:8084/ifm
+@contentType = application/json
+
+###############################################################################
+# Salud
+###############################################################################
+
+### Health — Servicio activo
+GET {{baseUrl}}/test
+
+###############################################################################
+# Cuentas
+###############################################################################
+
+### 310 — Apertura de cuenta
+POST {{baseUrl}}/cuentas/apertura
+Content-Type: {{contentType}}
+
+{
+  "idClienteRfc": "RFC123456789",
+  "fechaAperturaCuenta": "20260602",
+  "horaTrx": "103000",
+  "tipoPersona": "F",
+  "codigoProducto": "01",
+  "codigoSubproducto": "001",
+  "sucursalTransaccion": "00001"
+}
+
+### 345 — Variables de cuentas
+POST {{baseUrl}}/cuentas/cuentas
+Content-Type: {{contentType}}
+
+{
+  "codClienteRimOrigen": "12345",
+  "numeroCuentaOrigen": "000123456789",
+  "codigoTransaccion": "345"
+}
+
+### 347 — Cuentas plazo fijo
+POST {{baseUrl}}/cuentas/plazoFijo
+Content-Type: {{contentType}}
+
+{
+  "codClienteRimOrigen": "12345",
+  "numeroCuentaOrigen": "000123456789",
+  "codigoTransaccion": "347"
+}
+
+### 919 — Solicitud de chequera
+POST {{baseUrl}}/cuentas/solicitudChequera
+Content-Type: {{contentType}}
+
+{
+  "codClienteRimOrigen": "12345",
+  "numeroCuentaOrigen": "000123456789",
+  "tipoChequera": "01",
+  "noChequeras": 1
+}
+
+###############################################################################
+# Novedades
+###############################################################################
+
+### 318 — Variables novedades
+POST {{baseUrl}}/novedades/novedades
+Content-Type: {{contentType}}
+
+{
+  "codClienteRimOrigen": "12345",
+  "numeroCuentaOrigen": "000123456789",
+  "codigoTransaccion": "318",
+  "canalMedio": "WEB",
+  "fechaTrx": "20260602",
+  "horaTrx": "103000",
+  "tipoNovedad": "01"
+}
+
+###############################################################################
+# Administrativo
+###############################################################################
+
+### 8630 — Novedades tarjetas (administrativo)
+POST {{baseUrl}}/administrativo
+Content-Type: {{contentType}}
+
+{
+  "idCliente": "CLI001",
+  "noTarjetaEncriptadoSha256": "abc123hash",
+  "codigoDeTransaccion": 8630,
+  "fechaTrxAdq": 20260602,
+  "horaTrxAdq": 103000,
+  "idTerminal": "TERM001",
+  "datoAnterior": "ACTIVA",
+  "datoPosterior": "BLOQUEADA",
+  "acfUsuario": "USUARIO01"
+}
+
+###############################################################################
+# Proveedores
+###############################################################################
+
+### 582 — Pago a proveedores
+POST {{baseUrl}}/proveedores/pagoProveedores
+Content-Type: {{contentType}}
+
+{
+  "entidad": "0001",
+  "codigoTerceraParte": "PROV001",
+  "nombreBusinessDBA": "Proveedor Demo SA",
+  "fechaPago": "2026-06-02",
+  "horaPago": "10:30:00",
+  "monedaPago": "USD",
+  "montoPago": 1500.00,
+  "numeroFactura": "FAC-2026-001",
+  "formaPago": "T",
+  "usuario": "USUARIO01",
+  "terminal": "192.168.1.10"
+}
+
+###############################################################################
+# Empleados
+###############################################################################
+
+### 565 — Maestro de empleados
+POST {{baseUrl}}/empleados/empleados
+Content-Type: {{contentType}}
+
+{
+  "entidad": "0001",
+  "codigoEmpleado": "EMP001",
+  "primerNombreEmpleado": "Juan",
+  "primerApellidoEmpleado": "Perez",
+  "fechaContratacion": "20260101"
+}
+
+###############################################################################
+# Nóminas
+###############################################################################
+
+### 567 — Nóminas
+POST {{baseUrl}}/nominas/nomina
+Content-Type: {{contentType}}
+
+{
+  "codigoEmpleado": "EMP001",
+  "sueldoBase": 1500.00,
+  "bonificacion": 100.00
+}
+
+###############################################################################
+# Créditos
+###############################################################################
+
+### 915 — Solicitud de crédito
+POST {{baseUrl}}/creditos/solicitud
+Content-Type: {{contentType}}
+
+{
+  "idCliente": "CLI001",
+  "tipoDeSolicitud": "PERS",
+  "montoSolicitado": 50000.00,
+  "monedaDeLaCuenta": "USD",
+  "usuario": "USUARIO01"
+}
+
+### 917 — Consultas buró de crédito
+GET {{baseUrl}}/creditos/consultasBuro
+Content-Type: {{contentType}}
+
+{
+  "idCliente": "CLI001",
+  "tipoDeIdDelCliente": "RFC"
+}
+
+###############################################################################
+# Contable
+###############################################################################
+
+### 640 — Consulta maestro contable
+POST {{baseUrl}}/contable/consultaMaestro
+Content-Type: {{contentType}}
+
+{
+  "idMaestro": "MAE001",
+  "periodo": "202606"
+}
+
+### 620 — Consulta cuentas contables
+POST {{baseUrl}}/contable/consultaCuentas
+Content-Type: {{contentType}}
+
+{
+  "codigoCuenta": "110101",
+  "periodo": "202606"
+}
+
+### 650 — Consulta movimientos contables
+POST {{baseUrl}}/contable/consultaMovimientos
+Content-Type: {{contentType}}
+
+{
+  "codigoCuenta": "110101",
+  "fechaDesde": "20260601",
+  "fechaHasta": "20260630"
+}
+
+###############################################################################
+# Tarjetas
+###############################################################################
+
+### 920 — Solicitud tarjeta débito
+POST {{baseUrl}}/tarjetas/solicitudTarjetaDebito
+Content-Type: {{contentType}}
+
+{
+  "idCliente": "CLI001",
+  "tipoCuenta": "AHORRO",
+  "numeroCuenta": "000123456789"
+}
+
+###############################################################################
+# Internet Banking
+###############################################################################
+
+### 921 — Solicitud acceso internet banking
+POST {{baseUrl}}/internet-banking/solicitud
+Content-Type: {{contentType}}
+
+{
+  "idCliente": "CLI001",
+  "tipoCuenta": "CORRIENTE",
+  "correoElectronico": "cliente@ejemplo.com"
+}
+
+###############################################################################
+# Reclamos
+###############################################################################
+
+### 8765 — Reclamos
+POST {{baseUrl}}/reclamos/reclamos
+Content-Type: {{contentType}}
+
+{
+  "codigoDeReclamo": "8765",
+  "numeroDelReclamo": "REC001",
+  "idDelCliente": "CLI001",
+  "medioOCanalDelReclamo": "WEB",
+  "montoDeLaTransaccion": 100.00
+}
+
+###############################################################################
+# Operaciones débito / crédito
+###############################################################################
+
+### 8620 — Débito / crédito tarjeta
+POST {{baseUrl}}/operaciones/debitocreditoTarjeta
+Content-Type: {{contentType}}
+
+{
+  "acfCodTrx": 8620,
+  "acfFechaTrx": 20260602,
+  "acfHoraTrx": 103000,
+  "acfIdCliente": "CLI001",
+  "acfMontoEnMonedaLocal": 100.50,
+  "acfDebitoCredito": "DB",
+  "acfUsuario": "USUARIO01"
+}
+
+### 8625 — Débito / crédito comercio
+POST {{baseUrl}}/operaciones/debitocreditoComercio
+Content-Type: {{contentType}}
+
+{
+  "acfCodTrx": 8625,
+  "acfFechaTrx": 20260602,
+  "acfHoraTrx": 103000,
+  "acfIdCliente": "CLI001",
+  "acfMontoEnMonedaLocal": 250.00,
+  "acfDebitoCredito": "CR",
+  "acfUsuario": "USUARIO01"
+}
+
+###############################################################################
+# Actuator (monitoreo)
+###############################################################################
+
+### Circuit breakers — estado
+GET http://localhost:8084/ifm/actuator/circuitbreakers
+
+### Circuit breakers — eventos
+GET http://localhost:8084/ifm/actuator/circuitbreakerevents
+
+### Health
+GET http://localhost:8084/ifm/actuator/health
+
+### Swagger UI
+# Abrir en navegador: http://localhost:8084/ifm/swagger-ui.html

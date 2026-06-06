@@ -1,0 +1,363 @@
+{
+  "info": {
+    "_postman_id": "ifm-services-collection",
+    "name": "IFM Services — Pruebas completas",
+    "description": "Colección de todos los endpoints expuestos por ifm-services.\nCada request incluye el código de transacción IFM (ej. 318, 582).\n\nBase URL: {{baseUrl}} (por defecto http://localhost:8084/ifm)\n\nImportar también: IFM-Services.postman_environment.json",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8084/ifm"
+    }
+  ],
+  "item": [
+    {
+      "name": "00 — Salud",
+      "item": [
+        {
+          "name": "Health — Servicio activo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/test",
+            "description": "Verificación de que el servicio está en ejecución."
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 — Cuentas",
+      "item": [
+        {
+          "name": "310 — Apertura de cuenta",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idClienteRfc\": \"RFC123456789\",\n  \"fechaAperturaCuenta\": \"20260602\",\n  \"horaTrx\": \"103000\",\n  \"tipoPersona\": \"F\",\n  \"codigoProducto\": \"01\",\n  \"codigoSubproducto\": \"001\",\n  \"sucursalTransaccion\": \"00001\"\n}"
+            },
+            "url": "{{baseUrl}}/cuentas/apertura",
+            "description": "Código transacción: **310** — Apertura de cuenta."
+          }
+        },
+        {
+          "name": "345 — Variables de cuentas",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codClienteRimOrigen\": \"12345\",\n  \"numeroCuentaOrigen\": \"000123456789\",\n  \"codigoTransaccion\": \"345\"\n}"
+            },
+            "url": "{{baseUrl}}/cuentas/cuentas",
+            "description": "Código transacción: **345** — Variables de cuentas."
+          }
+        },
+        {
+          "name": "347 — Cuentas plazo fijo",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codClienteRimOrigen\": \"12345\",\n  \"numeroCuentaOrigen\": \"000123456789\",\n  \"codigoTransaccion\": \"347\"\n}"
+            },
+            "url": "{{baseUrl}}/cuentas/plazoFijo",
+            "description": "Código transacción: **347** — Cuentas plazo fijo."
+          }
+        },
+        {
+          "name": "919 — Solicitud de chequera",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codClienteRimOrigen\": \"12345\",\n  \"numeroCuentaOrigen\": \"000123456789\",\n  \"tipoChequera\": \"01\",\n  \"noChequeras\": 1\n}"
+            },
+            "url": "{{baseUrl}}/cuentas/solicitudChequera",
+            "description": "Código transacción: **919** — Solicitud de chequera."
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 — Novedades",
+      "item": [
+        {
+          "name": "318 — Variables novedades",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codClienteRimOrigen\": \"12345\",\n  \"numeroCuentaOrigen\": \"000123456789\",\n  \"codigoTransaccion\": \"318\",\n  \"canalMedio\": \"WEB\",\n  \"fechaTrx\": \"20260602\",\n  \"horaTrx\": \"103000\",\n  \"tipoNovedad\": \"01\"\n}"
+            },
+            "url": "{{baseUrl}}/novedades/novedades",
+            "description": "Código transacción: **318** — Variables novedades."
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 — Administrativo",
+      "item": [
+        {
+          "name": "8630 — Novedades tarjetas",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": \"CLI001\",\n  \"noTarjetaEncriptadoSha256\": \"abc123hash\",\n  \"codigoDeTransaccion\": 8630,\n  \"fechaTrxAdq\": 20260602,\n  \"horaTrxAdq\": 103000,\n  \"idTerminal\": \"TERM001\",\n  \"datoAnterior\": \"ACTIVA\",\n  \"datoPosterior\": \"BLOQUEADA\",\n  \"acfUsuario\": \"USUARIO01\"\n}"
+            },
+            "url": "{{baseUrl}}/administrativo",
+            "description": "Código transacción: **8630** — Novedades tarjetas (módulo administrativo)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 — Proveedores",
+      "item": [
+        {
+          "name": "582 — Pago a proveedores",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entidad\": \"0001\",\n  \"codigoTerceraParte\": \"PROV001\",\n  \"nombreBusinessDBA\": \"Proveedor Demo SA\",\n  \"fechaPago\": \"2026-06-02\",\n  \"horaPago\": \"10:30:00\",\n  \"monedaPago\": \"USD\",\n  \"montoPago\": 1500.00,\n  \"numeroFactura\": \"FAC-2026-001\",\n  \"formaPago\": \"T\",\n  \"usuario\": \"USUARIO01\",\n  \"terminal\": \"192.168.1.10\"\n}"
+            },
+            "url": "{{baseUrl}}/proveedores/pagoProveedores",
+            "description": "Código transacción: **582** — Pagos a proveedores."
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 — Empleados",
+      "item": [
+        {
+          "name": "565 — Maestro de empleados",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entidad\": \"0001\",\n  \"codigoEmpleado\": \"EMP001\",\n  \"primerNombreEmpleado\": \"Juan\",\n  \"primerApellidoEmpleado\": \"Perez\",\n  \"fechaContratacion\": \"20260101\"\n}"
+            },
+            "url": "{{baseUrl}}/empleados/empleados",
+            "description": "Código transacción: **565** — Reportar acciones en maestro de empleados."
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 — Nóminas",
+      "item": [
+        {
+          "name": "567 — Nóminas",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigoEmpleado\": \"EMP001\",\n  \"sueldoBase\": 1500.00,\n  \"bonificacion\": 100.00\n}"
+            },
+            "url": "{{baseUrl}}/nominas/nomina",
+            "description": "Código transacción: **567** — Nóminas."
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 — Créditos",
+      "item": [
+        {
+          "name": "915 — Solicitud de crédito",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": \"CLI001\",\n  \"tipoDeSolicitud\": \"PERS\",\n  \"montoSolicitado\": 50000.00,\n  \"monedaDeLaCuenta\": \"USD\",\n  \"usuario\": \"USUARIO01\"\n}"
+            },
+            "url": "{{baseUrl}}/creditos/solicitud",
+            "description": "Código transacción: **915** — Solicitud de crédito."
+          }
+        },
+        {
+          "name": "917 — Consultas buró de crédito",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": \"CLI001\",\n  \"tipoDeIdDelCliente\": \"RFC\"\n}"
+            },
+            "url": "{{baseUrl}}/creditos/consultasBuro",
+            "description": "Código transacción: **917** — Consultas buró.\n\nNota: el controlador usa GET con body (poco estándar). En Postman está habilitado el body; algunos clientes HTTP pueden rechazarlo."
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 — Contable",
+      "item": [
+        {
+          "name": "640 — Consulta maestro contable",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idMaestro\": \"MAE001\",\n  \"periodo\": \"202606\"\n}"
+            },
+            "url": "{{baseUrl}}/contable/consultaMaestro",
+            "description": "Código transacción: **640** — Consulta maestro contable."
+          }
+        },
+        {
+          "name": "620 — Consulta cuentas contables",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigoCuenta\": \"110101\",\n  \"periodo\": \"202606\"\n}"
+            },
+            "url": "{{baseUrl}}/contable/consultaCuentas",
+            "description": "Código transacción: **620** — Consulta cuentas contables."
+          }
+        },
+        {
+          "name": "650 — Consulta movimientos contables",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigoCuenta\": \"110101\",\n  \"fechaDesde\": \"20260601\",\n  \"fechaHasta\": \"20260630\"\n}"
+            },
+            "url": "{{baseUrl}}/contable/consultaMovimientos",
+            "description": "Código transacción: **650** — Consulta movimientos contables."
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 — Tarjetas",
+      "item": [
+        {
+          "name": "920 — Solicitud tarjeta débito",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": \"CLI001\",\n  \"tipoCuenta\": \"AHORRO\",\n  \"numeroCuenta\": \"000123456789\"\n}"
+            },
+            "url": "{{baseUrl}}/tarjetas/solicitudTarjetaDebito",
+            "description": "Código transacción: **920** — Solicitud tarjeta débito."
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 — Internet Banking",
+      "item": [
+        {
+          "name": "921 — Solicitud acceso internet banking",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idCliente\": \"CLI001\",\n  \"tipoCuenta\": \"CORRIENTE\",\n  \"correoElectronico\": \"cliente@ejemplo.com\"\n}"
+            },
+            "url": "{{baseUrl}}/internet-banking/solicitud",
+            "description": "Código transacción: **921** — Solicitud acceso internet banking."
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 — Reclamos",
+      "item": [
+        {
+          "name": "8765 — Reclamos",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigoDeReclamo\": \"8765\",\n  \"numeroDelReclamo\": \"REC001\",\n  \"idDelCliente\": \"CLI001\",\n  \"medioOCanalDelReclamo\": \"WEB\",\n  \"montoDeLaTransaccion\": 100.00\n}"
+            },
+            "url": "{{baseUrl}}/reclamos/reclamos",
+            "description": "Código transacción: **8765** — Reclamos."
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 — Operaciones débito/crédito",
+      "item": [
+        {
+          "name": "8620 — Débito/crédito tarjeta",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"acfCodTrx\": 8620,\n  \"acfFechaTrx\": 20260602,\n  \"acfHoraTrx\": 103000,\n  \"acfIdCliente\": \"CLI001\",\n  \"acfMontoEnMonedaLocal\": 100.50,\n  \"acfDebitoCredito\": \"DB\",\n  \"acfUsuario\": \"USUARIO01\"\n}"
+            },
+            "url": "{{baseUrl}}/operaciones/debitocreditoTarjeta",
+            "description": "Código transacción: **8620** — Operaciones débito/crédito tarjeta."
+          }
+        },
+        {
+          "name": "8625 — Débito/crédito comercio",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"acfCodTrx\": 8625,\n  \"acfFechaTrx\": 20260602,\n  \"acfHoraTrx\": 103000,\n  \"acfIdCliente\": \"CLI001\",\n  \"acfMontoEnMonedaLocal\": 250.00,\n  \"acfDebitoCredito\": \"CR\",\n  \"acfUsuario\": \"USUARIO01\"\n}"
+            },
+            "url": "{{baseUrl}}/operaciones/debitocreditoComercio",
+            "description": "Código transacción: **8625** — Operaciones débito/crédito comercio."
+          }
+        }
+      ]
+    },
+    {
+      "name": "99 — Actuator (monitoreo)",
+      "item": [
+        {
+          "name": "Circuit breakers — estado",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/actuator/circuitbreakers"
+          }
+        },
+        {
+          "name": "Circuit breakers — eventos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/actuator/circuitbreakerevents"
+          }
+        },
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/actuator/health"
+          }
+        }
+      ]
+    }
+  ]
+}
